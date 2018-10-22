@@ -1,8 +1,9 @@
 # **[WIP]** ***devtionary*** - *El diccionario por y para desarrolladores*
 
 ![AUR](https://img.shields.io/aur/license/yaourt.svg)
-![GitHub issues](https://img.shields.io/github/issues/badges/shields.svg)
-![GitHub stars](https://img.shields.io/github/stars/badges/shields.svg?style=social&label=Stars)
+![Architecture](https://img.shields.io/badge/arch-microservices-f95f9a.svg)
+![GitHub issues](https://img.shields.io/github/issues/adrianmorente/devtionary.svg)
+![GitHub stars](https://img.shields.io/github/stars/adrianmorente/devtionary.svg?style=social&label=Stars)
 
 ## 1. ¿Qué es ***devtionary***? :boom:
 
