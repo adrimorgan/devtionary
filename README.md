@@ -23,9 +23,21 @@ Lejos de ser una fuente de información absoluta, está pensada para funcionar c
 
 ### Implementación, *testing* y despliegue :rocket:
 
-- Desde el punto de vista de las **arquitecturas de microservicios**, aprovecharemos las bondades de la *programación políglota* (con los distintos componentes en diferentes lenguajes) para implementar este servicio con el lenguaje [***Perl6***](https://perl6.org/). En un futuro, la interfaz de usuario abastecida por este usuario podría programarse perfectamente en cualquier otro lenguaje como *JavaScript* y derivados.
+##### Lenguaje utilizado
+
+- Desde el punto de vista de las **arquitecturas de microservicios**, aprovecharemos las bondades de la *programación políglota* (con los distintos componentes en diferentes lenguajes) para implementar este servicio con el lenguaje [***Perl6***](https://perl6.org/). `(El motivo por el que escojo este lenguaje es porque lo desconozco, e inmergirme en un proyecto real es una oportunidad perfecta para aprenderlo.)` En un futuro, la interfaz de usuario abastecida por este usuario podría programarse perfectamente en cualquier otro lenguaje como *JavaScript* y derivados.
+
+- Una vez elegido el lenguaje de programación, agradeceremos el uso de algún *framework* web que nos ayude en la implementación de este tipo de servicios. Basándonos en Perl6, podemos usar alternativas como [***Cro***](https://cro.services) o [***Bailador***](https://github.com/Bailador/Bailador). En este caso, optaremos por el primero dado que al ser más moderno, parece ser más sencillo y rápido de empezar a usar.
+
+##### Persistencia de datos
+
+- En cuanto al almacenamiento persistente de datos, preferentemente optaremos por una base de datos de tipo no-relacional (*NoSQL*), cuya estructura es más conveniente para proyectos donde la estructura no es definitiva al 100% o las relaciones no llegan a estar perfectamente definidas dada la posibilidad de cambios en los modelos. Para este proyecto, por facilidad de uso y por experiencia con la herramienta, usaremos [***MongoDB***](https://www.mongodb.com/).
+
+##### Integración continua y *testing*
 
 - Como todo sistema software moderno, el código habrá de ser testeado y superará un mecanismo de integración continua antes de aceptar nueva inclusión de código en el repositorio. Esta integración podrá hacerse con herramientas como [***Travis-CI***](https://travis-ci.com).
+
+##### Despliegue
 
 - El código testeado, una vez incluido en el repositorio, se volcará automáticamente en una imagen de contenedor ***Docker*** para facilitar el despliegue automatizado y fácilmente instanciable en diferentes réplicas del servicio web.
 
