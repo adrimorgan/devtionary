@@ -7,12 +7,16 @@
 
 ---
 
-**La documentación referente al proyecto se puede encontrar organizada bajo el directorio [`/docs`](https://github.com/adrianmorente/devtionary/docs)**
+**La documentación referente al proyecto se puede encontrar organizada bajo el directorio [`/docs`](https://github.com/adrianmorente/devtionary/tree/master/docs)**
 
-## [¿Qué es ***devtionary***? - Documentación del proyecto](docs/Hito 1 - Elección y descripción de un proyecto/README.md) :boom:
+## ¿Qué es ***devtionary***? :boom:
+
+[Descripción inicial del proyecto](docs/Hito 1 - Elección y descripción de un proyecto/README.md)
 
 ---
 
-## [Provisionamiento](docs/Hito 2 - Provisionamiento de máquinas virtuales/README.md) :rocket:
+## Provisionamiento :rocket:
+
+[Documentación sobre provisionamiento de máquinas virtuales](docs/Hito 2 - Provisionamiento de máquinas virtuales/README.md)
 
 ---
