@@ -1,0 +1,39 @@
+{
+  "name": "devtionary",
+  "version": "1.0.0",
+  "description": "Aplicación de tomar notas para desarrolladores",
+  "main": "app.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adrianmorente/devtionary.git"
+  },
+  "keywords": [
+    "node",
+    "dev",
+    "notes",
+    "javascript",
+    "dictionary"
+  ],
+  "author": "@adrianmorente",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/adrianmorente/devtionary/issues"
+  },
+  "homepage": "https://github.com/adrianmorente/devtionary#readme",
+  "dependencies": {
+    "assert": "^1.4.1",
+    "express": "^4.16.4",
+    "mongodb": "^3.1.8"
+  },
+  "devDependencies": {
+    "coveralls": "^3.0.2",
+    "mocha": "^5.2.0"
+  }
+}
