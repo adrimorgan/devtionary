@@ -7,6 +7,7 @@ describe('Testeando app a modo de ejemplo: ', function(){
     request(app)
       .get('/')
       .expect('Content-Type', "text/html; charset=utf-8")
+      .expect('{ "status" : "OK" }')
       .expect(200, done);
   });
 

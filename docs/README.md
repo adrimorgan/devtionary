@@ -36,10 +36,30 @@ Por su uso tan extendido y por ser de las herramientas más modernas en este ám
 
 - Como todo sistema software moderno, el código habrá de ser testeado y superará un mecanismo de integración continua antes de aceptar nueva inclusión de código en el repositorio. Esta integración podrá hacerse con herramientas como [***Travis-CI***](https://travis-ci.com).
 
-- Adicionalmente, para mejorar la calidad del software (así como el aspecto de nuestro repositorio, por qué no), podremos utilizar servicios de control del testeo como [Coveralls](https://coveralls.io/) o similares. Se tratan de servicios que calculan (entiendo que de forma aproximada) el porcentaje del código que está completamente testeado.
+- Adicionalmente, para mejorar la calidad del software (así como el aspecto de nuestro repositorio, por qué no), podremos utilizar servicios de control del testeo como [Coveralls](https://coveralls.io/) o similares. Se tratan de servicios que calculan el porcentaje del código cubierto.
 
-##### Despliegue
+## Configuración de despliegue
 
-- El código testeado, una vez incluido en el repositorio, se volcará automáticamente en una imagen de contenedor ***Docker*** para facilitar el despliegue automatizado y fácilmente instanciable en diferentes réplicas del servicio web.
+En cuanto a las distintas plataformas de despliegue existentes en la actualidad, podríamos optar por utilizar *Heroku*, *Firebase*, *Google App Engine* y/o similares. Sin embargo, por cercanía me decantaré por utilizar [zeit.co](zeit.co), junto con su cómoda herramienta [`now`](https://zeit.co/docs/getting-started/introduction-to-now) desde línea de comandos en Linux.
 
-- En cuanto a plataforma de despliegue, se podría optar por *Heroku*, *Firebase*, *Google App Engine* y/o similares. Sin embargo, por cercanía y por la exclusividad que ofrece para imágenes *Docker* y para servicios implementados en *Node*, me decantaré por utilizar [zeit.co](zeit.co), junto con su cómoda herramienta [`now`](https://zeit.co/docs/getting-started/introduction-to-now) desde línea de comandos en Linux.
+Además, recientemente [han publicado una nueva versión *2.0* con bastantes mejoras](https://zeit.co/blog/now-2) de dicho software, por lo que merece la pena el intento.
+
+#### Despliegue automático desde GitHub
+
+Uno de los *shortcuts* que nos ahorrará tiempo como *DevOps* en nuestro trabajo, es el despliegue automático del servicio web al hacer `push` al repositorio donde almacenamos y versionamos el código.
+
+De este modo, al hacer `push`, el código sería testado de forma automática antes de su incorporación al repositorio; en caso positivo, el servicio con las nuevas características incorporadas sería desplegado en la nube de forma automática.
+
+Despliegue: https://devtionary-daadzbaaxw.now.sh
+
+#### Configuración de los tests en Travis correctamente
+
+La bondad que nos aporta Travis, como ya hemos comentado, es el testeo automático de nuestro código de forma previa a su incorporación en el repositorio. Además de funcionar bien y proveer al usuario de un *feedback* en tiempo real de los resultados obtenidos, brilla por su facilidad de configuración. [hablar de configuración].
+
+Para complementar, podemos monitorizar el porcentaje de cobertura de tests del que dispone nuestro código. [hablar de coveralls].
+
+
+3 puntos: Funcionamiento correcto del despliegue en el PaaS, del status y de otras rutas adicionales.
+2 puntos: Ficheros de definición de los servicios en el PaaS correctos y documentados.
+2 puntos: Tests correctos a nivel de servicio web y a nivel de la clase subyacente.
+1 punto: Punto adicional por originalidad, diseño de la aplicación, avance de la aplicación, trabajo invertido.
