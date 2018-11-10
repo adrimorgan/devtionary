@@ -1,9 +1,9 @@
 var request = require('supertest');
 var app = require('../src/app.js');
 
-describe('Testeando app a modo de ejemplo: ', function(){
+describe('Tests unitarios de rutas: ', function(){
 
-  it('GET /', function(done){
+  it('Test ruta "/" status', function(done){
     request(app)
       .get('/')
       .expect('Content-Type', "text/html; charset=utf-8")
@@ -11,4 +11,52 @@ describe('Testeando app a modo de ejemplo: ', function(){
       .expect(200, done);
   });
 
+  it('Test GET base de datos', function(done){
+    request(app)
+      .get('/devnotes')
+      .expect('Content-Type', "application/json; charset=utf-8")
+      .expect(200, done);
+  });
+
+  it('Test CREATE devnote', function(done){
+    request(app)
+      .post('/devnotes/cloud\ computing/asignatura')
+      .expect(200, done);
+  });
+
+  it('Test CREATE devnote duplicada', function (done) {
+    request(app)
+      .post('/devnotes/cloud\ computing/asignatura')
+      .expect(409, done);
+  });
+
+  it('Test GET devnote', function(done){
+    request(app)
+      .get('/devnotes/cloud\ computing')
+      .expect(200, done);
+  });
+
+  it('Test DELETE devnote', function(done){
+    request(app)
+      .delete('/devnotes/cloud\ computing')
+      .expect(200, done);
+  });
+
+  it('Test DELETE devnote ya borrada', function(done){
+    request(app)
+      .delete('/devnotes/cloud\ computing')
+      .expect(204, done);
+  });
+
+  it('Test GET devnote borrada', function (done) {
+    request(app)
+      .get('/devnotes/cloud\ computing')
+      .expect(404, done);
+  });
+
+  it('Test DELETE base de datos', function(done){
+    request(app)
+      .delete('/devnotes')
+      .expect(200, done);
+  });
 });
