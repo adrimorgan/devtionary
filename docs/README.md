@@ -14,7 +14,7 @@ Lejos de ser una fuente de información absoluta, está pensada para funcionar c
 
 - Para utilizar esta herramienta no necesitas iniciar sesión en una página web que desconocías hasta ahora; bastará con que uses los servicios con los que estás acostumbrado a trabajar y autenticarte con ellos, gracias al uso de [***Auth0***](https://auth0.com/).
 
-### Implementación, *testing* y despliegue :rocket:
+### Implementación y despliegue :rocket:
 
 ##### Lenguaje utilizado
 
@@ -32,34 +32,41 @@ Gracias al uso de `Node` acompañado del gestor ***`NPM`*** dispondremos de un m
 
 Por su uso tan extendido y por ser de las herramientas más modernas en este ámbito, utilizaremos [`Ansible`](https://www.ansible.com/) para el provisionamiento de las máquinas virtuales donde se alojarán los fuentes del servicio que será ofrecido finalmente.
 
-##### Integración continua y *testing*
+### Integración continua y *testing*
 
 - Como todo sistema software moderno, el código habrá de ser testeado y superará un mecanismo de integración continua antes de aceptar nueva inclusión de código en el repositorio. Esta integración podrá hacerse con herramientas como [***Travis-CI***](https://travis-ci.com).
 
 - Adicionalmente, para mejorar la calidad del software (así como el aspecto de nuestro repositorio, por qué no), podremos utilizar servicios de control del testeo como [Coveralls](https://coveralls.io/) o similares. Se tratan de servicios que calculan el porcentaje del código cubierto.
 
+##### Configuración de los tests en Travis correctamente
+
+La bondad que nos aporta la integración continua, como ya hemos comentado, es el testeo automático de nuestro código de forma previa a su incorporación en el repositorio. Por su parte, Travis, además de funcionar bien y proveer al usuario de un *feedback* en tiempo real de los resultados obtenidos, brilla por su facilidad de configuración:
+
+- Para empezar, basta con registrarse en Travis, conectarlo con GitHub y seleccionar los repositorios que se desean sincronizar.
+- A continuación, de forma particular a cada proyecto, es necesaria una pequeña configuración para determinar el lenguaje a contemplar por Travis. Afortunadamente, en la documentación proveen de templates para los lenguajes más comúnmente usados (como lo es en mi caso con NodeJS).
+
+```yaml
+language: node_js
+node_js:
+  - "node"
+  - "lts/*"
+after_success: 'npm run coveralls'
+```
+
+En este fichero `.travis.yml` se lista el lenguaje utilizado, las versiones (en mi caso, `node` para la última y `lts/*` para la última versión de *Long-Term Support*).
+
+Para complementar, podemos monitorizar el porcentaje de cobertura de tests del que dispone nuestro código usando la ya mencionada herramienta ***Coveralls***. Con la última línea del fichero decimos a Travis que una vez se hayan superado con éxito los tests de integración, se ejecute dicha herramienta para calcular el porcentaje de cobertura y orientarnos sobre el volumen de "robustez" de nuestro código (así como mostrarlo en una bonita *badge* en el repositorio).
+
 ## Configuración de despliegue
 
-En cuanto a las distintas plataformas de despliegue existentes en la actualidad, podríamos optar por utilizar *Heroku*, *Firebase*, *Google App Engine* y/o similares. Sin embargo, por cercanía me decantaré por utilizar [zeit.co](zeit.co), junto con su cómoda herramienta [`now`](https://zeit.co/docs/getting-started/introduction-to-now) desde línea de comandos en Linux.
-
-Además, recientemente [han publicado una nueva versión *2.0* con bastantes mejoras](https://zeit.co/blog/now-2) de dicho software, por lo que merece la pena el intento.
+En cuanto a las distintas plataformas de despliegue existentes en la actualidad, podríamos optar por utilizar *Zeit.co* (cuya [nueva versión](https://zeit.co/blog/now-2) merece una mención especial), *Firebase*, *Google App Engine* y/o similares. Sin embargo, utilizaremos [***Heroku***](https://www.heroku.com/) por cercanía, su facilidad de uso y por la definición automática y gratuita de un nombre de dominio estático para la instancia (a diferencia de *Zeit.co*, que genera una nueva URL con cada `push`).
 
 #### Despliegue automático desde GitHub
 
 Uno de los *shortcuts* que nos ahorrará tiempo como *DevOps* en nuestro trabajo, es el despliegue automático del servicio web al hacer `push` al repositorio donde almacenamos y versionamos el código.
 
-De este modo, al hacer `push`, el código sería testado de forma automática antes de su incorporación al repositorio; en caso positivo, el servicio con las nuevas características incorporadas sería desplegado en la nube de forma automática.
+De este modo, al hacer `push`, el código sería testeado de forma automática antes de su incorporación al repositorio; en caso positivo, el servicio con las nuevas características añadidas sería desplegado en la nube de forma automática.
 
-Despliegue: https://devtionary-daadzbaaxw.now.sh
+Para configurar este despliegue desde *Heroku*, basta con entrar a la pestaña **"Deploy"** del *dashboard* de nuestro perfil registrado, y pulsar el botón **"Enable Automatic Deploys"**. Una vez hecho esto, quedará de la siguiente forma:
 
-#### Configuración de los tests en Travis correctamente
-
-La bondad que nos aporta Travis, como ya hemos comentado, es el testeo automático de nuestro código de forma previa a su incorporación en el repositorio. Además de funcionar bien y proveer al usuario de un *feedback* en tiempo real de los resultados obtenidos, brilla por su facilidad de configuración. [hablar de configuración].
-
-Para complementar, podemos monitorizar el porcentaje de cobertura de tests del que dispone nuestro código. [hablar de coveralls].
-
-
-3 puntos: Funcionamiento correcto del despliegue en el PaaS, del status y de otras rutas adicionales.
-2 puntos: Ficheros de definición de los servicios en el PaaS correctos y documentados.
-2 puntos: Tests correctos a nivel de servicio web y a nivel de la clase subyacente.
-1 punto: Punto adicional por originalidad, diseño de la aplicación, avance de la aplicación, trabajo invertido.
+Despliegue: http://devtionary.herokuapp.com
