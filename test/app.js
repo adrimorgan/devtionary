@@ -7,9 +7,16 @@ describe('Tests unitarios de rutas: ', function(){
     request(app)
       .get('/')
       .expect('Content-Type', "text/html; charset=utf-8")
-      .expect('{ "status" : "OK" }')
+      .expect('{ "status" : "OK", "ejemplo" : { "ruta" : "/help", "valor" : "{ "usage" : "try to post a new devnote to /devnotes/key/value" }" } }')
       .expect(200, done);
   });
+
+  it('Test ruta "/help" de ayuda', function(done){
+    request(app)
+      .get('/help')
+      .expect('Content-Type', "text/html; charset=utf-8")
+      .expect(200, done);
+  })
 
   it('Test GET base de datos', function(done){
     request(app)
