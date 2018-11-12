@@ -36,7 +36,9 @@ Por su uso tan extendido y por ser de las herramientas más modernas en este ám
 
 - Como todo sistema software moderno, el código habrá de ser testeado y superará un mecanismo de integración continua antes de aceptar nueva inclusión de código en el repositorio. Esta integración podrá hacerse con herramientas como [***Travis-CI***](https://travis-ci.com).
 
-- Adicionalmente, para mejorar la calidad del software (así como el aspecto de nuestro repositorio, por qué no), podremos utilizar servicios de control del testeo como [Coveralls](https://coveralls.io/) o similares. Se tratan de servicios que calculan el porcentaje del código cubierto.
+- Las herramientas software que utilizaremos para realizar dichos tests serán [*Mocha*](https://mochajs.org/) e [*Istanbul*](https://istanbul.js.org/). La primera será la que ejecute los tests al código mientras que la segunda nos mostrará un informe de cobertura cuando termine la primera (esto es, porcentajes de funciones, rutinas y líneas de código cubiertas por los tests escritos).
+
+- Por otro lado, para mejorar la calidad del software (así como el aspecto de nuestro repositorio, por qué no) utilizaremos otra herramienta de control de cobertura de los tests: [*Coveralls*](https://coveralls.io/). Esta se diferencia de *Istanbul* en cuanto a que en lugar de mostrar el informe de cobertura en la terminal del desarrollador, genera datos preparados para ser mostrados desde la web del repositorio; habilitando también una *badge* con el porcentaje para ser enseñado en la descripción de dicho repo.
 
 ##### Configuración de los tests en Travis correctamente
 
