@@ -6,15 +6,26 @@ describe('Tests unitarios de rutas: ', function(){
   it('Test ruta "/" status', function(done){
     request(app)
       .get('/')
-      .expect('Content-Type', "text/html; charset=utf-8")
-      .expect('{ "status" : "OK", "ejemplo" : { "ruta" : "/help", "valor" : "{ "usage" : "try to post a new devnote to /devnotes/key/value" }" } }')
+      .expect('Content-Type', "application/json; charset=utf-8")
+      .expect({
+        status: "OK",
+        ejemplo: {
+          ruta: "/help",
+          valor: {
+            usage: "try to POST a new devnote to /devnotes/key/value"
+          }
+        }
+      })
       .expect(200, done);
   });
 
   it('Test ruta "/help" de ayuda', function(done){
     request(app)
       .get('/help')
-      .expect('Content-Type', "text/html; charset=utf-8")
+      .expect('Content-Type', "application/json; charset=utf-8")
+      .expect({
+        usage: "try to POST a new devnote to /devnotes/key/value"
+      })
       .expect(200, done);
   })
 

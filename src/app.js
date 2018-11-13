@@ -9,12 +9,22 @@ var devnotesMap = new Map;
 
 // status route - to verify execution of the service
 app.get('/', function(req, res){
-  res.send('{ "status" : "OK", "ejemplo" : { "ruta" : "/help", "valor" : "{ "usage" : "try to post a new devnote to /devnotes/key/value" }" } }');
+  res.send({
+    status: "OK",
+    ejemplo: {
+      ruta: "/help",
+      valor: {
+        usage: "try to POST a new devnote to /devnotes/key/value"
+      }
+    }
+  });
 });
 
 // help route - necessary for testing purposes
 app.get('/help', function(req, res){
-  res.send('{ "usage" : "try to post a new devnote to /devnotes/key/value" }');
+  res.send({
+    usage: "try to POST a new devnote to /devnotes/key/value"
+  });
 });
 
 // devnotes GET route - to get all the devnotes existing in the "database"
