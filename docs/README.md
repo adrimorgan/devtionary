@@ -71,4 +71,4 @@ De este modo, al hacer `push`, el código sería testeado de forma automática a
 
 Para configurar este despliegue desde *Heroku*, basta con entrar a la pestaña **"Deploy"** del *dashboard* de nuestro perfil registrado, y pulsar el botón **"Enable Automatic Deploys"**. Una vez hecho esto, quedará de la siguiente forma:
 
-Despliegue: http://devtionary.herokuapp.com
+Despliegue: https://devtionary.herokuapp.com

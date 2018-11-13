@@ -13,4 +13,4 @@
 
 ---
 
-Despliegue: http://devtionary.herokuapp.com
+Despliegue: https://devtionary.herokuapp.com
