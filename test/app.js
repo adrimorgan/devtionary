@@ -63,7 +63,7 @@ describe('Tests unitarios de rutas: ', function(){
   it('Test DELETE devnote ya borrada', function(done){
     request(app)
       .delete('/devnotes/cloud\ computing')
-      .expect(204, done);
+      .expect(200, done);
   });
 
   it('Test GET devnote borrada', function (done) {

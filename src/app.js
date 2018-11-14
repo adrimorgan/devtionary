@@ -61,11 +61,9 @@ app.post('/devnotes/:key/:value', function(req, res){
 // devnotes/:key DELETE route - to delete a specific devnote
 app.delete('/devnotes/:key', function(req, res){
   var key = req.params.key;
-  if(key in devnotesMap){
+  if(key in devnotesMap)
     delete devnotesMap[key];
-    res.sendStatus(200);  // deleted
-  } else
-    res.sendStatus(204);  // didn't exist
+  res.sendStatus(200);
 });
 
 // it's necessary to listen this way in order not to lock the port
