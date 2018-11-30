@@ -2,6 +2,7 @@
 
 var express = require('express');
 var app = express();
+var address = process.env.ADDR || '0.0.0.0';
 var port = process.env.PORT || 5000;
 
 // temporary array to store devnotes, modified by the HTTP interaction
@@ -68,8 +69,8 @@ app.delete('/devnotes/:key', function(req, res){
 
 // it's necessary to listen this way in order not to lock the port
 if(!module.parent){
-  app.listen(port);
-  console.log('Server running at http://127.0.0.1:' + port + '/');
+  app.listen(port, address);
+  console.log('Server running at ' + address + ':' + port + '/');
 }
 
 module.exports = app;
