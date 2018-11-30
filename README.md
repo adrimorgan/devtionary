@@ -39,10 +39,6 @@ Lejos de ser una fuente de información absoluta, está pensada para funcionar c
 
 Gracias al uso de `Node` acompañado del gestor ***`NPM`*** dispondremos de un módulo llamado también `MongoDB` que nos permitirá interactuar con la base de datos de forma sencilla y directa (como vemos en [este enlace](https://www.w3schools.com/nodejs/nodejs_mongodb_create_db.asp)).
 
-##### Provisionamiento
-
-Por su uso tan extendido y por ser de las herramientas más modernas en este ámbito, utilizaremos [`Ansible`](https://www.ansible.com/) para el provisionamiento de las máquinas virtuales donde se alojarán los fuentes del servicio que será ofrecido finalmente.
-
 ### Integración continua y *testing*
 
 - Como todo sistema software moderno, el código habrá de ser testeado y superará un mecanismo de integración continua antes de aceptar nueva inclusión de código en el repositorio. Esta integración podrá hacerse con herramientas como [***Travis-CI***](https://travis-ci.com).
@@ -83,3 +79,52 @@ De este modo, al hacer `push`, el código sería testeado de forma automática a
 Para configurar este despliegue desde *Heroku*, basta con entrar a la pestaña **"Deploy"** del *dashboard* de nuestro perfil registrado, y pulsar el botón **"Enable Automatic Deploys"**. Una vez hecho esto, quedará de la siguiente forma:
 
 Despliegue: https://devtionary.herokuapp.com
+
+## Provisionamiento
+
+Como sabemos, consiste en hacer lo necesario para que nuestro microservicio pueda ejecutarse en una o más instancias de servidores web (generalmente, en forma de máquinas virtuales sobre cualquier plataforma cloud como *Azure*, *AWS* u *OpenStack*). Para llegar a esto, en la máquina final deberán cumplirse diversos factores:
+
+1. Deberá disponer de un sistema operativo apto para la utilidad que buscamos. Para esto nos bastará con instalar alguna de las distribuciones *GNU/Linux* más comunes para este fin.
+1. Deberá estar ***git*** instalado en dicho sistema operativo (a través del gestor de paquetes, generalmente *apt* o *yum*), ya que gran parte de los programas pueden ser instalados a partir de ahí; además de que será la herramienta necesaria para clonar el repositorio con el código que se ha de desplegar.
+1. Las dependencias del microservicio (dictadas por el lenguaje de programación utilizado) deberán ser instaladas en la máquina. Por ejemplo, para un servicio web programado con *NodeJS*, será de imperativa necesidad disponer de *NPM* así como de las dependencias estipuladas por el `package.json` proporcionado por el proyecto; o por el fichero `requirements.txt` en caso de utilizar *Python* como lenguaje de programación.
+1. Finalmente, **el código** del servicio que se desea desplegar (clonado mediante *git* y con sus dependencias instaladas con herramientas similares a las antes mencionadas).
+
+---
+
+##### Sistema operativo
+
+Dentro del catálogo de sistemas operativos disponibles para servidores web nos encontramos con *Debian*, *CentOS* y *Ubuntu Server* principalmente (aunque existen otros).
+
+##### Provisionando con Ansible
+
+Una **herramienta de provisionamiento** como *Rex*, *Puppet* o *Ansible* (entre otras) se encargará de satisfacer los requisitos enumerados en cada una de las instancias que deseemos. En este caso, utilizaremos [`Ansible`](https://www.ansible.com/) por las siguientes razones:
+
+- Al ser una herramienta más moderna que sus "rivales", intenta proveer una interfaz de provisionamiento y orquestación más sencilla que el resto, con las ventajas que ello comporta al desarrollador; aliviando la dificultad de esta parte del desarrollo.
+- Está programada en *Python* y depende de dicho lenguaje, que por suerte a día de hoy ya viene instalado en prácticamente cualquier sistema operativo moderno.
+- La instalación y primera ejecución son sencillas; y dispone de una documentación rica con secciones dedicadas para las principales plataformas cloud.
+
+##### Desplegando en Azure
+
+Además de la herramienta de provisionamiento que vamos a usar, necesitamos saber **dónde vamos a desplegar el servicio**, que será sobre *Azure* en una instancia de las obtenidas de forma gratuita a través de la Universidad. Este es uno de los principales motivos por los que elegimos la plataforma de *Microsoft*, dado que a pesar de intentar obtener otra instancia gratuita en *AWS* de *Amazon*, por demoras del servicio no ha sido posible.
+
+Para empezar, habremos de instalar de forma local en nuestro ordenador el cliente de línea de comandos de Azure, para evitarnos lidiar con la interfaz web y ser más productivos en la tarea de crear y gestionar recursos. Para ello, podemos seguir la guía [provista por Microsoft](https://docs.microsoft.com/es-es/cli/azure/?view=azure-cli-latest), que nos brindará los pasos sencillos para instalar el cliente (generalmente desde los repositorios de nuestro sistema operativo) y nos enumerará los diferentes pasos para comenzar a utilizar el servicio.
+
+Para dotar de la infraestructura necesaria a nuestra máquina virtual, deberemos satisfacer los siguientes requisitos:
+
+- Beneficiarnos de un grupo de recursos virtuales (utilizando para ello el crédito antes mencionado). Para ello ejecutamos el siguiente comando donde indicamos el nombre que tendrá el grupo así como la localización del servidor donde instalaremos nuestra instancia:
+
+<center><img alt="Comando de creación de un grupo de recursos virtuales en Azure" width="480px" src="./img/azure-create-group.png" /></center>
+
+- Crear una máquina virtual aprovechando los recursos creados previamente. Dicha creación se lleva a cabo ejecutando el siguiente comando, indicando el nombre de la máquina, el grupo recién mencionado, la imagen de sistema operativo a utilizar y el nombre del usuario administrador. Además, pedimos (por favor, claro) a Azure que genere una clave SSH para el usuario especificado.
+
+<center><img alt="Comando de creación de un grupo de recursos virtuales en Azure" width="300px" src="./img/azure-create-vm.png" /></center>
+
+- Habilitar el puerto HTTP a través del cual llegarán las solicitudes a nuestro servicio web (80).
+
+Si queremos asegurarnos de que la máquina se ha creado con todos los parámetros especificados, así como revisar algunos parámetros de configuración por defecto, podemos ejecutar el comando `az vm list`, el cual lista las máquinas virtuales existentes haciendo una descripción a fondo en formato JSON. Además, una vez la máquina esté creada podremos realizar labores de administración mediante SSH con el comando `ssh usuario@ip-de-la-máquina`.
+
+#### [EN LOCAL]
+
+[VARIABLES DE ENTORNO PARA AZURE DESDE ANSIBLE](https://docs.ansible.com/ansible/latest/scenario_guides/guide_azure.html#using-environment-variables)
+
+[COMO LEER VARIABLES DE ENTORNO EN ANSIBLE](https://docs.ansible.com/ansible/2.5/plugins/lookup/env.html#examples)
