@@ -7,7 +7,7 @@
     "doc": "docs"
   },
   "scripts": {
-    "start": "pm2 start src/app.js -a",
+    "start": "pm2 start src/app.js",
     "test": "istanbul cover _mocha",
     "coveralls": "npm run test -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
   },
