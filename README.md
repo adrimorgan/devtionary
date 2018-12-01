@@ -91,11 +91,11 @@ Como sabemos, consiste en hacer lo necesario para que nuestro microservicio pued
 
 ---
 
-##### Sistema operativo
+#### Sistema operativo
 
 Dentro del catálogo de sistemas operativos disponibles para servidores web nos encontramos con *Debian*, *CentOS* y *Ubuntu Server* principalmente (aunque existen otros).
 
-##### Provisionando con Ansible
+#### Provisionando con Ansible
 
 Una **herramienta de provisionamiento** como *Rex*, *Puppet* o *Ansible* (entre otras) se encargará de satisfacer los requisitos enumerados en cada una de las instancias que deseemos. En este caso, utilizaremos [`Ansible`](https://www.ansible.com/) por las siguientes razones:
 
@@ -103,7 +103,20 @@ Una **herramienta de provisionamiento** como *Rex*, *Puppet* o *Ansible* (entre 
 - Está programada en *Python* y depende de dicho lenguaje, que por suerte a día de hoy ya viene instalado en prácticamente cualquier sistema operativo moderno.
 - La instalación y primera ejecución son sencillas; y dispone de una documentación rica con secciones dedicadas para las principales plataformas cloud.
 
-##### Desplegando en Azure
+###### Receta de provisionamiento *(playbook)*
+
+Para satisfacer los requisitos antes mencionados, el *playbook* correspondiente deberá realizar las siguientes tareas:
+
+1. Instalar `git`, `curl`, `nodejs` y `pm2`.
+1. Descargar el código de este repositorio en la máquina virtual.
+1. Instalar las dependencias del proyecto para poder ejecutarlo.
+
+La configuración de Ansible de dicho procedimiento se realiza en el archivo [provision/playbook.yml](./provision/playbook.yml); que a su vez se ayuda de otros dos ficheros presentes en el mismo directorio `provision`:
+
+- [`ansible.cfg`](./provision/ansible.cfg) que contiene un parámetro para que el cliente SSH de nuestra máquina no pida autorización al conectar a una nueva máquina desconocida además de la ruta a los hosts a tener en cuenta por el cliente de Ansible.
+- [`ansible_hosts`](./provision/ansible_hosts) por otro lado permite agrupar los diferentes hosts que manejemos, especificando su IP pública, el puerto SSH de conexión y la clave pública de nuestra máquina a instalar allí (para poder realizar labores de administración sin contraseña). Inicialmente solo dispondremos de uno en Azure, como comentamos en el siguiente apartado.
+
+### Creando recursos en Azure
 
 Además de la herramienta de provisionamiento que vamos a usar, necesitamos saber **dónde vamos a desplegar el servicio**, que será sobre *Azure* en una instancia de las obtenidas de forma gratuita a través de la Universidad. Este es uno de los principales motivos por los que elegimos la plataforma de *Microsoft*, dado que a pesar de intentar obtener otra instancia gratuita en *AWS* de *Amazon*, por demoras del servicio no ha sido posible.
 
@@ -113,18 +126,18 @@ Para dotar de la infraestructura necesaria a nuestra máquina virtual, deberemos
 
 - Beneficiarnos de un grupo de recursos virtuales (utilizando para ello el crédito antes mencionado). Para ello ejecutamos el siguiente comando donde indicamos el nombre que tendrá el grupo así como la localización del servidor donde instalaremos nuestra instancia:
 
-<center><img alt="Comando de creación de un grupo de recursos virtuales en Azure" width="480px" src="./img/azure-create-group.png" /></center>
+<p align="center"><img alt="Comando de creación de un grupo de recursos virtuales en Azure" width="480px" src="./img/azure-create-group.png" /></p>
 
 - Crear una máquina virtual aprovechando los recursos creados previamente. Dicha creación se lleva a cabo ejecutando el siguiente comando, indicando el nombre de la máquina, el grupo recién mencionado, la imagen de sistema operativo a utilizar y el nombre del usuario administrador. Además, pedimos (por favor, claro) a Azure que genere una clave SSH para el usuario especificado.
 
-<center><img alt="Comando de creación de un grupo de recursos virtuales en Azure" width="300px" src="./img/azure-create-vm.png" /></center>
+<p align="center"><img alt="Comando de creación de un grupo de recursos virtuales en Azure" width="300px" src="./img/azure-create-vm.png" /></p>
 
 - Habilitar el puerto HTTP a través del cual llegarán las solicitudes a nuestro servicio web (80). Cuando dotemos de seguridad al microservicio obligando al acceso mediante el protocolo HTTPS, utilizaremos el puerto 443.
 
-<center><img alt="Comando de apertura del puerto 80 para HTTP" width="480px" src="./img/azure-open-port.png" /></center>
+<p align="center"><img alt="Comando de apertura del puerto 80 para HTTP" width="480px" src="./img/azure-open-port.png" /></p>
 
 Si queremos asegurarnos de que la máquina se ha creado con todos los parámetros especificados, así como revisar algunos parámetros de configuración por defecto, podemos ejecutar el comando `az vm list`, el cual lista las máquinas virtuales existentes haciendo una descripción a fondo en formato JSON por defecto, o en YML si así lo queremos (usando el flag `--output yaml`).
 
 Además, para obtener parámetros como la dirección IP pública asociada a nuestra máquina, Azure CLI dispone de comandos como `az vm list-ip-addresses` a través del cual podremos obtenerla. Hecho esto, con el usuario creado como administrador, podremos realizar labores de administración mediante SSH con el comando `ssh usuario@ip`. En mi caso, la IP pública correspondiente al despliegue en Azure es la siguiente:
 
-MV: 13.81.24.137
+MV: 13.80.98.209
