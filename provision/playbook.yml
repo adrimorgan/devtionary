@@ -26,6 +26,3 @@
 
     - name: Instalar dependencias de package.json
       raw: cd devtionary; npm install
-
-    - name: Ejecutar servicio web
-      raw: cd devtionary; export PORT=80; /usr/bin/npm start
