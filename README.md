@@ -109,7 +109,7 @@ Además de la herramienta de provisionamiento que vamos a usar, necesitamos sabe
 
 Para empezar, habremos de instalar de forma local en nuestro ordenador el cliente de línea de comandos de Azure, para evitarnos lidiar con la interfaz web y ser más productivos en la tarea de crear y gestionar recursos. Para ello, podemos seguir la guía [provista por Microsoft](https://docs.microsoft.com/es-es/cli/azure/?view=azure-cli-latest), que nos brindará los pasos sencillos para instalar el cliente (generalmente desde los repositorios de nuestro sistema operativo) y nos enumerará los diferentes pasos para comenzar a utilizar el servicio.
 
-Para dotar de la infraestructura necesaria a nuestra máquina virtual, deberemos satisfacer los siguientes requisitos:
+Para dotar de la infraestructura necesaria a nuestra máquina virtual, deberemos satisfacer algunos requisitos como la creación de recursos y máquina(s) virtual(es) (podemos ayudarnos de la documentación provista por Microsoft [aquí](https://docs.microsoft.com/es-es/azure/virtual-machines/scripts/virtual-machines-linux-cli-sample-create-vm-quick-create?toc=%2fcli%2fazure%2ftoc.json#sample-script)):
 
 - Beneficiarnos de un grupo de recursos virtuales (utilizando para ello el crédito antes mencionado). Para ello ejecutamos el siguiente comando donde indicamos el nombre que tendrá el grupo así como la localización del servidor donde instalaremos nuestra instancia:
 
@@ -119,12 +119,12 @@ Para dotar de la infraestructura necesaria a nuestra máquina virtual, deberemos
 
 <center><img alt="Comando de creación de un grupo de recursos virtuales en Azure" width="300px" src="./img/azure-create-vm.png" /></center>
 
-- Habilitar el puerto HTTP a través del cual llegarán las solicitudes a nuestro servicio web (80).
+- Habilitar el puerto HTTP a través del cual llegarán las solicitudes a nuestro servicio web (80). Cuando dotemos de seguridad al microservicio obligando al acceso mediante el protocolo HTTPS, utilizaremos el puerto 443.
 
-Si queremos asegurarnos de que la máquina se ha creado con todos los parámetros especificados, así como revisar algunos parámetros de configuración por defecto, podemos ejecutar el comando `az vm list`, el cual lista las máquinas virtuales existentes haciendo una descripción a fondo en formato JSON. Además, una vez la máquina esté creada podremos realizar labores de administración mediante SSH con el comando `ssh usuario@ip-de-la-máquina`.
+<center><img alt="Comando de apertura del puerto 80 para HTTP" width="480px" src="./img/azure-open-port.png" /></center>
 
-#### [EN LOCAL]
+Si queremos asegurarnos de que la máquina se ha creado con todos los parámetros especificados, así como revisar algunos parámetros de configuración por defecto, podemos ejecutar el comando `az vm list`, el cual lista las máquinas virtuales existentes haciendo una descripción a fondo en formato JSON por defecto, o en YML si así lo queremos (usando el flag `--output yaml`).
 
-[VARIABLES DE ENTORNO PARA AZURE DESDE ANSIBLE](https://docs.ansible.com/ansible/latest/scenario_guides/guide_azure.html#using-environment-variables)
+Además, para obtener parámetros como la dirección IP pública asociada a nuestra máquina, Azure CLI dispone de comandos como `az vm list-ip-addresses` a través del cual podremos obtenerla. Hecho esto, con el usuario creado como administrador, podremos realizar labores de administración mediante SSH con el comando `ssh usuario@ip`. En mi caso, la IP pública correspondiente al despliegue en Azure es la siguiente:
 
-[COMO LEER VARIABLES DE ENTORNO EN ANSIBLE](https://docs.ansible.com/ansible/2.5/plugins/lookup/env.html#examples)
+MV: 13.81.24.137
