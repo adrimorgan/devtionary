@@ -1,0 +1,31 @@
+---
+  - hosts: all
+    become: true
+    gather_facts: false
+
+    tasks:
+    - name: Instalar git y curl
+      apt:
+        name: ['git', 'curl']
+        state: present
+        update_cache: yes
+
+    - name: Descargar NodeJS LTS desde repo
+      raw: curl -sL https://deb.nodesource.com/setup_11.x | sudo -E bash -
+
+    - name: Instalar NodeJS LTS descargado
+      apt: name=nodejs
+
+    - name: Instalar PM2 (NodeJS Process Manager)
+      npm: name=pm2 executable=/usr/bin/npm global=yes
+
+    - name: Descargar Devtionary de GitHub
+      git:
+        repo: https://github.com/adrianmorente/devtionary.git
+        dest: ./devtionary
+
+    - name: Instalar dependencias de package.json
+      raw: cd devtionary; npm install
+
+    - name: Ejecutar servicio web
+      raw: cd devtionary; export PORT=80; /usr/bin/npm start
