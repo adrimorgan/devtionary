@@ -24,4 +24,4 @@ Si nos fijamos en la imagen anterior, el provisionamiento se ha realizado de man
 
 
 Por último, vamos a ejecutar el servicio, el cuál funciona correctamente, tal y como se puede apreciar en la siguiente imagen.
-<p align="center"><img alt="Ejecución del servicio" width="500px" src="./img/provisionamientoComprobado.png" /></p>
+<p align="center"><img alt="Ejecución del servicio" width="500px" src="./img/ejecucion_servicio.png" /></p>
