@@ -70,15 +70,17 @@ Para complementar, podemos monitorizar el porcentaje de cobertura de tests del q
 
 En cuanto a las distintas plataformas de despliegue existentes en la actualidad, podríamos optar por utilizar *Zeit.co* (cuya [nueva versión](https://zeit.co/blog/now-2) merece una mención especial), *Firebase*, *Google App Engine* y/o similares. Sin embargo, utilizaremos [***Heroku***](https://www.heroku.com/) por cercanía, su facilidad de uso y por la definición automática y gratuita de un nombre de dominio estático para la instancia (a diferencia de *Zeit.co*, que genera una nueva URL con cada `push`).
 
-#### Despliegue automático desde GitHub
+#### Despliegue automático a Heroku desde GitHub
 
 Uno de los *shortcuts* que nos ahorrará tiempo como *DevOps* en nuestro trabajo, es el despliegue automático del servicio web al hacer `push` al repositorio donde almacenamos y versionamos el código.
 
-De este modo, al hacer `push`, el código sería testeado de forma automática antes de su incorporación al repositorio; en caso positivo, el servicio con las nuevas características añadidas sería desplegado en la nube de forma automática.
+De este modo, al hacer `push`, el código sería testeado de forma automática antes de su incorporación al repositorio; en caso positivo, el servicio con las nuevas características añadidas sería desplegado en la nube de forma automática. **Es decir, si el código incorporado a nuestro repositorio supera los tests de Travis, se copia de GitHub a la instancia cloud que tengamos.**
 
 Para configurar este despliegue desde *Heroku*, basta con entrar a la pestaña **"Deploy"** del *dashboard* de nuestro perfil registrado, y pulsar el botón **"Enable Automatic Deploys"**. Una vez hecho esto, quedará de la siguiente forma:
 
 Despliegue: https://devtionary.herokuapp.com
+
+---
 
 ## Provisionamiento
 
@@ -89,11 +91,16 @@ Como sabemos, consiste en hacer lo necesario para que nuestro microservicio pued
 1. Las dependencias del microservicio (dictadas por el lenguaje de programación utilizado) deberán ser instaladas en la máquina. Por ejemplo, para un servicio web programado con *NodeJS*, será de imperativa necesidad disponer de *NPM* así como de las dependencias estipuladas por el `package.json` proporcionado por el proyecto; o por el fichero `requirements.txt` en caso de utilizar *Python* como lenguaje de programación.
 1. Finalmente, **el código** del servicio que se desea desplegar (clonado mediante *git* y con sus dependencias instaladas con herramientas similares a las antes mencionadas).
 
----
-
 #### Sistema operativo
 
-Dentro del catálogo de sistemas operativos disponibles para servidores web nos encontramos con *Debian*, *CentOS* y *Ubuntu Server* principalmente (aunque existen otros).
+Dentro del catálogo de sistemas operativos disponibles para servidores web nos encontramos con *Debian*, *CentOS* y *Ubuntu Server* principalmente (aunque existen muchos otros). En cuanto a términos de rendimiento apenas existen diferencias si se utilizan los mismos servicios sobre ellos, por lo que la justificación de dicha elección se basará en otros aspectos.
+
+En nuestro caso, nos quedaremos con Ubuntu Server por los siguientes motivos:
+- Goza de una comunidad de usuarios enorme, con las ventajas que ello comporta en cuanto a testeo y documentación.
+- Recibe actualizaciones de forma mucho más rápida que rivales como CentOS, que aunque puede verse como un aspecto de inestabilidad, permite disfrutar antes de las novedades implementadas por la comunidad de *GNU/Linux*.
+- Por familiaridad con el uso del sistema operativo y `apt`, su gestor de paquetes.
+
+Si intentamos remitirnos a alguna fuente que nos oriente hacia una decisión final, todas plantean las características antes explicadas y optan por que el aspecto más importante es la experiencia que tenga el usuario con cada uno (como vemos en los ejemplos [1](https://www.futurehosting.com/blog/what-is-the-difference-between-centos-and-ubuntu-server/) y [2](https://www.hostinger.com/tutorials/centos-vs-ubuntu)).
 
 #### Provisionando con Ansible
 
@@ -115,6 +122,8 @@ La configuración de Ansible de dicho procedimiento se realiza en el archivo [pr
 
 - [`ansible.cfg`](./provision/ansible.cfg) que contiene un parámetro para que el cliente SSH de nuestra máquina no pida autorización al conectar a una nueva máquina desconocida además de la ruta a los hosts a tener en cuenta por el cliente de Ansible.
 - [`ansible_hosts`](./provision/ansible_hosts) por otro lado permite agrupar los diferentes hosts que manejemos, especificando su IP pública, el puerto SSH de conexión y la clave pública de nuestra máquina a instalar allí (para poder realizar labores de administración sin contraseña). Inicialmente solo dispondremos de uno en Azure, como comentamos en el siguiente apartado.
+
+Una vez realizado correctamente este provisionamiento, la máquina virtual estará preparada para desplegar nuestro servicio; cosa que temporalmente se hará de forma manual accediendo por SSH, entrando en el directorio correspondiente y ejecutando la orden `sudo npm start`.
 
 ### Creando recursos en Azure
 
