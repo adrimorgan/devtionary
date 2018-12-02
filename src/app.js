@@ -3,7 +3,7 @@
 var express = require('express');
 var app = express();
 var address = process.env.ADDR || '0.0.0.0';
-var port = process.env.PORT || 5000;
+var port = process.env.PORT || 80;
 
 // temporary array to store devnotes, modified by the HTTP interaction
 var devnotesMap = new Map;
