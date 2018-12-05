@@ -45,4 +45,4 @@ Hecho por @andreamorgar. La comprobación se puede consultar [aquí](./docs/comp
 
 ### Sistema de logs de información y depuración
 
-La documentación referente al uso de `Winston` y sus aplicaciones se puede consultar [aquí](./docs/Sistema\ de\ logs/).
+La documentación referente al uso de `Winston` y sus aplicaciones se puede consultar [aquí](https://github.com/adrianmorente/devtionary/tree/master/docs/Sistema%20de%20logs).
