@@ -153,4 +153,8 @@ MV: 13.80.98.209
 
 ### Comprobación del provisionamiento en otra máquina
 
-Hecho por @andreamorgar. La comprobación se puede consultar [aquí](./docs/comprobacion_provision.md) 
+Hecho por @andreamorgar. La comprobación se puede consultar [aquí](./docs/comprobacion_provision.md)
+
+### Sistema de logs de información y depuración
+
+La documentación referente al uso de `Winston` y sus aplicaciones se puede consultar [aquí](./docs/Sistema\ de\ logs/).
