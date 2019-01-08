@@ -37,7 +37,7 @@ Despliegue: https://devtionary.herokuapp.com
 
 La documentación referente al provisionamiento a través del uso de `Ansible` puede consultarse [en este enlace](./docs/Provisionamiento/).
 
-MV: 13.80.98.209
+MV: 13.80.98.209 *(actualmente apagada debido al coste de uso.)*
 
 ### Comprobación del provisionamiento en otra máquina
 
