@@ -33,16 +33,14 @@ Para ahondar un poco en todas las herramientas utilizadas por este servicio (len
 
 Despliegue: https://devtionary.herokuapp.com
 
-## Provisionamiento
-
-La documentación referente al provisionamiento a través del uso de `Ansible` puede consultarse [en este enlace](./docs/Provisionamiento/).
-
-MV: 13.80.98.209 *(actualmente apagada debido al coste de uso.)*
-
-### Comprobación del provisionamiento en otra máquina
-
-Hecho por @andreamorgar. La comprobación se puede consultar [aquí](./docs/comprobacion_provision.md).
-
 ### Sistema de logs de información y depuración
 
 La documentación referente al uso de `Winston` y sus aplicaciones se puede consultar [aquí](https://github.com/adrianmorente/devtionary/tree/master/docs/Sistema%20de%20logs).
+
+### Provisionamiento a cloud automático mediante CLI
+
+En las tareas necesarias para satisfacer los requisitos de este apartado pueden encontrarse algunas similitudes con las acciones desempeñadas para la solución del hito anterior (cuya información puede consultarse [en este enlace](./docs/Provisionamiento/) y que versa principalmente sobre la utilización de *Ansible*), dado que opté por utilizar herramientas de línea de comandos tanto para la creación de recursos como de máquinas virtuales, usando ***Azure*** como proveedor [y lógicamente, su herramienta `az` (que viene a ser la antigua `azure-cli` en su versión 2.0) como utilidad de línea de comandos].
+
+Sin embargo, para este nuevo hito iremos más allá, y realizaremos una serie de pasos similar con una nueva máquina virtual, pero haciendo más hincapié en la elección del sistema operativo (realizando medidas de rendimiento mediante ejecución de *benchmarks* si fuese necesario). La documentación referente a este nuevo apartado se puede consultar [aquí](./docs/Provisionamiento%20automático), y la dirección IP obtenida por dicho proveedor es la mostrada a continuación:
+
+MV2: X.X.X.X

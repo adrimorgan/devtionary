@@ -65,4 +65,4 @@ Si queremos asegurarnos de que la máquina se ha creado con todos los parámetro
 
 Además, para obtener parámetros como la dirección IP pública asociada a nuestra máquina, Azure CLI dispone de comandos como `az vm list-ip-addresses` a través del cual podremos obtenerla. Hecho esto, con el usuario creado como administrador, podremos realizar labores de administración mediante SSH con el comando `ssh usuario@ip`. En mi caso, la IP pública correspondiente al despliegue en Azure es la siguiente:
 
-MV: 13.80.98.209
+MV: 13.80.98.209 ***(Actualmente apagada por la generación de gastos económicos que conlleva).***
