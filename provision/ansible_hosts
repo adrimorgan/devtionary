@@ -1,2 +1,4 @@
 [default]
-ubuntuHito3 ansible_ssh_port=22 ansible_ssh_host=13.80.98.209 ansible_ssh_user=azure ansible_ssh_private_key_file=~/.ssh/id_rsa
+maquinaHito4-ubuntu ansible_ssh_port=22 ansible_ssh_host=40.89.176.16 ansible_ssh_user=amorente ansible_ssh_private_key_file=~/.ssh/id_rsa
+maquinaHito4-centos ansible_ssh_port=22 ansible_ssh_host=40.89.159.131 ansible_ssh_user=amorente ansible_ssh_private_key_file=~/.ssh/id_rsa
+maquinaHito4-debian ansible_ssh_port=22 ansible_ssh_host=20.188.38.56 ansible_ssh_user=amorente ansible_ssh_private_key_file=~/.ssh/id_rsa
