@@ -61,6 +61,8 @@ Connection time [ms]: connect 63.2
 Reply time [ms]: response 65.7 transfer 0.0
 ```
 
+Una vez realizadas las mediciones, para ahorrar gastos se habrán apagado todas las máquinas de Azure.
+
 Dado que estamos midiendo retardos en tiempo de conexión y de respuesta, **cuanto menos, mejor**; así que viendo los valores obtenidos optaré por utilizar `Debian` como sistema operativo para alojar mi servicio en la máquina virtual definitiva:
 
 MV2: 20.188.38.56
