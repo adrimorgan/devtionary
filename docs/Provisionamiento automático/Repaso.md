@@ -64,20 +64,16 @@ Las opciones detalladas de `az` pueden consultarse en [este enlace](https://docs
 
 Como podemos observar en [dicha documentación](https://docs.microsoft.com/en-us/cli/azure/vm/image?view=azure-cli-latest), con el comando `az vm image list` podemos obtener (una vez más en formato JSON) una lista de los sistemas operativos disponibles en el *Marketplace* de *Azure* aptos para su instalación en una máquina virtual de nueva generación. Entre los resultados obtenidos figuran *caras conocidas* como lo son *Ubuntu Server, CentOS, CoreOS* y *openSUSE*, por ejemplo, así como diversas versiones de *Windows Server*, que obviaremos.
 
-Para optar por una de estas alternativas habremos de realizar alguna medición empírica que justifique la elección más allá de los gustos o costumbres personales de uso. Además, debemos asegurarnos de que no existen diferencias presupuestarias entre los sistemas operativos (igual que SÍ existen en los diferentes tipos de máquinas virtuales, según su potencia o nivel de banda ancha). Veremos estas mediciones en el siguiente apartado.
-
-#### Elección del sistema operativo para virtualización
-
-Depende de las mediciones realizadas para compararlos
+Para optar por una de estas alternativas habremos de realizar alguna medición empírica que justifique la elección más allá de los gustos o costumbres personales de uso. Además, debemos asegurarnos de que no existen diferencias presupuestarias entre los sistemas operativos (igual que SÍ existen en los diferentes tipos de máquinas virtuales, según su potencia o nivel de banda ancha). Las decisiones finales podrán consultarse en [este documento](./Justificaciones.md) una vez concluído el repaso.
 
 #### Creación de la máquina virtual que será provisionada
 
 Una vez que hemos optado por un tamaño de máquina virtual y un sistema operativo, ejecutamos la generación de la máquina virtual con el siguiente comando, especificando además de estos parámetros el **nombre** que queremos asignarle, así como el **grupo de recursos** con el que abastecerla:
 
-`az vm create -n ubuntuHito4 -g Recursos-Hito4 --image  --admin-username azure --generate-ssh-keys`
+`az vm create -n ubuntuHito4 -g Recursos-Hito4 --image UbuntuLTS --admin-username azure --generate-ssh-keys`
 
 Por otro lado, al igual que se hizo con [la otra fase de provisionamiento](../Provisionamiento), podemos consultar la dirección IP de la nueva máquina con el comando `az vm list-ip-addresses`, que es la mostrada a continuación:
 
-MV2: X.X.X.X
+MV2: 20.188.38.56
 
 Una vez terminado el repaso a los comandos utilizados, pasemos a ver [la justificación de imágenes de sistema operativo, centro de datos y tamaños de instancia en base a medidas](./Justificaciones.md).

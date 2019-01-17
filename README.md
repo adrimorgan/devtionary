@@ -43,4 +43,4 @@ En las tareas necesarias para satisfacer los requisitos de este apartado pueden 
 
 Sin embargo, para este nuevo hito iremos más allá, y realizaremos una serie de pasos similar con una nueva máquina virtual, pero haciendo más hincapié en la elección del sistema operativo (realizando medidas de rendimiento mediante ejecución de *benchmarks* si fuese necesario). La documentación referente a este nuevo apartado se puede consultar [aquí](./docs/Provisionamiento%20automático), y la dirección IP obtenida por dicho proveedor es la mostrada a continuación:
 
-MV2: X.X.X.X
+MV2: 20.188.38.56
