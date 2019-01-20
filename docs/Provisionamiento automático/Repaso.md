@@ -30,7 +30,7 @@ Una vez que tenemos clara y establecida la suscripción que utilizaremos, pasamo
 
 Una vez más en JSON se nos mostrará una salida (esta vez con mucho más contenido) detallando cada una de las ubicaciones de la siguiente forma:
 
-<p align="center"><img alt="Ejemplo de ubicaciones disponibles de recursos virtuales según suscripción" width="500px" src="../img/azure-account-list-locations.png" /></p>
+<p align="center"><img alt="Ejemplo de ubicaciones disponibles de recursos virtuales según suscripción" width="650px" src="../img/azure-account-list-locations.png" /></p>
 
 Dado que tanto los sistemas operativos como los precios de los recursos serán iguales independientemente de la ubicación, escogeremos una de las más cercanas a nuestra ubicación actual, para paliar posibles latencias derivadas de la distancia física hasta el centro de datos. En este caso, los centros de datos más cercanos se encuentran ubicados en el sur y el centro de Francia (con nombre `francesouth` y `francecentral`, respectivamente).
 
