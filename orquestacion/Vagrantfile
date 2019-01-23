@@ -1,0 +1,58 @@
+require 'vagrant-azure'
+
+VAGRANTFILE_API_VERSION = "2"
+DEVTIONARY_CORE_NAME = "devtionary-core"
+DEVTIONARY_DB_NAME = "devtionary-database"
+AZURE_VM_SIZE = "Standard_B1s"
+AZURE_DEBIAN_URN = "credativ:Debian:8:latest"
+AZURE_RESOURCE_LOCATION = "francecentral"
+AZURE_RESOURCE_GROUP_NAME = "RecursosHito5"
+AZURE_VIRTUAL_NETWORK_NAME = "private_devtionary_network"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+	config.vm.box = "azure-vacio"
+	config.ssh.private_key_path = '~/.ssh/id_rsa'
+
+	##### Operaciones comunes para N máquinas
+	# Establece las credenciales y recursos del proveedor usado (Azure)
+	do_configura_maquinas = Proc.new do |maquina|
+		maquina.tenant_id = ENV['AZURE_TENANT_ID']
+		maquina.client_id = ENV['AZURE_CLIENT_ID']
+		maquina.client_secret = ENV['AZURE_CLIENT_SECRET']
+		maquina.subscription_id = ENV['AZURE_SUBSCRIPTION_ID']
+		maquina.vm_image_urn = AZURE_DEBIAN_URN
+		maquina.location = AZURE_RESOURCE_LOCATION
+		maquina.virtual_network_name = AZURE_VIRTUAL_NETWORK_NAME
+		maquina.resource_group_name = AZURE_RESOURCE_GROUP_NAME
+	end
+
+	# Servicio web (Plain Debian con provisionamiento de Devtionary)
+	config.vm.define "web", primary: true do |web|
+		web.vm.provider :azure do |az|
+			do_configura_maquinas.call az
+			az.vm_size = AZURE_VM_SIZE
+			az.vm_name = DEVTIONARY_CORE_NAME
+			az.tcp_endpoints = [80]
+		end
+
+		# Provisionamiento con Ansible
+		web.vm.provision "ansible" do |cooker|
+			cooker.playbook = "provision/devtionary-playbook.yml"
+		end
+	end
+
+	# Base de datos (Plain Debian con instalación de Redis)
+	config.vm.define "db" do |db|
+		db.vm.provider :azure do |az|
+			do_configura_maquinas.call az
+			az.vm_size = AZURE_VM_SIZE
+			az.vm_name = DEVTIONARY_DB_NAME
+			az.tcp_endpoints = [6379]
+		end
+
+		# Provisionamiento dedicado para instalación de Redis en Debian
+		db.vm.provision "ansible" do |cooker|
+			cooker.playbook = "provision/redis-playbook.yml"
+		end
+	end
+end

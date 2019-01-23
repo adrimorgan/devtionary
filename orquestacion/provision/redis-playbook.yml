@@ -1,0 +1,25 @@
+---
+  - hosts: all
+    become: true
+    gather_facts: false
+
+    tasks:
+    - name: Instalar paquetes necesarios
+      apt:
+        name: ['wget', 'curl', 'build-essential', 'tcl', 'redis-server']
+        state: present
+        update_cache: yes
+
+    - copy:
+        src: ./src/redis.conf
+        dest: /redis.conf
+
+    - copy:
+        src: ./src/redis.service
+        dest: /redis.service
+
+    - name: Configurar Redis
+      script: ./src/configurar.sh
+
+    - name: Instalar servicio
+      script: ./src/instalar.sh
