@@ -1,9 +1,9 @@
 var request = require('supertest');
 var app = require('../src/app.js');
 
-describe('Tests unitarios de rutas: ', function(){
+describe('Tests unitarios de rutas', function(){
 
-  it('Test ruta "/" status', function(done){
+  it('Test ruta "/" índice', function(done){
     request(app)
       .get('/')
       .expect('Content-Type', "application/json; charset=utf-8")
@@ -15,6 +15,16 @@ describe('Tests unitarios de rutas: ', function(){
             usage: "try to POST a new devnote to /devnotes/key/value"
           }
         }
+      })
+      .expect(200, done);
+  });
+
+  it('Test ruta "/status" de estado', function(done){
+    request(app)
+      .get('/status')
+      .expect('Content-Type', "application/json; charset=utf-8")
+      .expect({
+        status: "OK"
       })
       .expect(200, done);
   });
@@ -70,11 +80,5 @@ describe('Tests unitarios de rutas: ', function(){
     request(app)
       .get('/devnotes/cloud\ computing')
       .expect(404, done);
-  });
-
-  it('Test DELETE base de datos', function(done){
-    request(app)
-      .delete('/devnotes')
-      .expect(200, done);
   });
 });

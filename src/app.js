@@ -1,12 +1,15 @@
 #!/usr/bin/node
 
+/// Web microframework library
 var express = require('express');
+
+/// Winston logging library
 const { createLogger, format, transports } = require('winston');
 require('winston-daily-rotate-file');
 const fs = require('fs');
 const path = require('path');
 
-// production or development mode
+/// Production or development mode
 const env = process.env.NODE_ENV || 'development';
 
 // create the log directory if it doesn't exist
@@ -15,7 +18,7 @@ if(!fs.existsSync(logDirectory)){
   fs.mkdirSync(logDirectory);
 }
 
-// code for the daily log file
+/// Daily log file generation
 const dailyRotateFileTransport = new transports.DailyRotateFile({
   filename: `${logDirectory}/%DATE%-results.log`,
   datePattern: 'YYYY-MM-DD'
@@ -55,7 +58,7 @@ var devnotesMap = new Map;
 ////////////////////////////////////////////////////////////////////////////////
 /// ROUTES ///
 
-/// status route - to verify execution of the service
+/// index route - shows a little message helping the user
 app.get('/', function(req, res){
 
   // log the address of the request author
@@ -70,6 +73,18 @@ app.get('/', function(req, res){
         usage: "try to POST a new devnote to /devnotes/key/value"
       }
     }
+  });
+});
+
+/// status route - to verify the execution of the service
+app.get('/status', function(req, res){
+
+  // log the status request
+  logger.info('Request to /status from ' + req.connection.remoteAddress);
+
+  // send the simple status report
+  res.send({
+    status: "OK"
   });
 });
 
@@ -93,17 +108,6 @@ app.get('/devnotes', function(req, res){
 
   // send the list of devnotes currently available
   res.send(devnotesMap);
-});
-
-/// devnotes DELETE route - to empty the "database"
-app.delete('/devnotes', function(req, res){
-
-  // drop every devnote
-  devnotesMap.clear();
-
-  // log the DELETE action and the agent
-  logger.info('Devnotes map cleared by ' + req.connection.remoteAddress);
-  res.sendStatus(200);
 });
 
 // devnotes/:key GET route - to get a specific devnote
@@ -156,7 +160,8 @@ app.delete('/devnotes/:key', function(req, res){
   res.sendStatus(200);
 });
 
-// it's necessary to listen this way in order not to lock the port
+/// Starts the server
+  // This way, the port is not locked during unit tests
 if(!module.parent){
   app.listen(port, address);
   logger.info('Server listening at ' + address + ':' + port + '/');
