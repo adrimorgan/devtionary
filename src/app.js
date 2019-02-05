@@ -3,6 +3,18 @@
 /// Web microframework library
 var express = require('express');
 
+/// Redis storage library
+const redis = require('redis');
+
+// Default values if running Redis on the same machine
+var redisHost = process.env.REDIS_HOST || "127.0.0.1";
+var redisPort = process.env.REDIS_PORT || 6379;
+
+var redisClient = redis.createClient({
+  host: redisHost,
+  port: redisPort
+});
+
 /// Winston logging library
 const { createLogger, format, transports } = require('winston');
 require('winston-daily-rotate-file');

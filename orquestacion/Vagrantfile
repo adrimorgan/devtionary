@@ -2,11 +2,11 @@ require 'vagrant-azure'
 
 VAGRANTFILE_API_VERSION = "2"
 DEVTIONARY_CORE_NAME = "devtionary-core"
-DEVTIONARY_DB_NAME = "devtionary-database"
+DEVTIONARY_DB_NAME = "devtionary-db"
 AZURE_VM_SIZE = "Standard_B1s"
 AZURE_DEBIAN_URN = "credativ:Debian:8:latest"
 AZURE_RESOURCE_LOCATION = "francecentral"
-AZURE_RESOURCE_GROUP_NAME = "RecursosHito5"
+AZURE_RESOURCE_GROUP_NAME = "Recursos-Hito5"
 AZURE_VIRTUAL_NETWORK_NAME = "private_devtionary_network"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
@@ -32,7 +32,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 			do_configura_maquinas.call az
 			az.vm_size = AZURE_VM_SIZE
 			az.vm_name = DEVTIONARY_CORE_NAME
-			az.tcp_endpoints = [80]
+			az.tcp_endpoints = '80'
 		end
 
 		# Provisionamiento con Ansible
@@ -47,7 +47,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 			do_configura_maquinas.call az
 			az.vm_size = AZURE_VM_SIZE
 			az.vm_name = DEVTIONARY_DB_NAME
-			az.tcp_endpoints = [6379]
+			az.tcp_endpoints = '6379'
 		end
 
 		# Provisionamiento dedicado para instalación de Redis en Debian
