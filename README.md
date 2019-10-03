@@ -1,4 +1,4 @@
-# **[WIP]** ***devtionary*** - *El diccionario por y para desarrolladores*
+# **[DROPPED DEVELOPMENT]** ***devtionary*** - *El diccionario por y para desarrolladores*
 
 ![AUR](https://img.shields.io/aur/license/yaourt.svg)
 ![Architecture](https://img.shields.io/badge/arch-microservices-f95f9a.svg)
